@@ -26,50 +26,25 @@ def get_one_page(url):
 
 def parse_one_page(html):
     soup = BeautifulSoup(html, 'lxml')
-    soup.prettify()
-    info = []
     prefix = 'http://sh.lianjia.com'
-    for items in soup.select('.info-panel'):
-        for item in items.select('h2'):
-            for sub_item in item.select('a'):
-                info.append(sub_item['href'])
-                info.append(sub_item['title'])
-
-        for item in items.select('.col-1'):
-            for sub_item in item.select('.where'):
-                for span in sub_item.select('span'):
-                    info.append(span.get_text())
-
-            for sub_item in item.select('.other'):
-                for a in sub_item.select('a'):
-                    info.append(a.get_text())
-            for sub_item in item.select('.chanquan'):
-                for span in sub_item.select('span'):
-                    info.append(span.get_text())
-
-        for item in items.select('.col-3'):
-            for span in item.select('span'):
-                info.append(span.get_text())
-            for div in item.select('.price-pre'):
-                info.append(div.get_text())
-
-        for item in items.select('.col-2'):
-            for span in item.select('span'):
-                info.append(span.get_text())
-        info_temp = list(set(info))
-        info_temp.sort(key=info.index)
-        info = []
-        info_temp[0] = prefix + info_temp[0]
-        info_temp[3] = info_temp[3].split('\xa0\xa0')[0]
-        info_temp[4] = info_temp[4].split('\xa0\xa0')[0]
-        info_temp[11] = info_temp[11].split('\n')[0]
-        del info_temp[7]
-        yield info_temp
+    for item in soup.select('.info-panel'):
+        houseUrl = prefix + item.find("h2").a["href"]
+        title = item.find("h2").a["title"]
+        spans = item.find(class_="where").find_all("span")
+        xiaoqu, huxing, mianji = spans[0].string, spans[1].string.split('\xa0')[0], spans[2].string.split('\xa0')[0]
+        cons = item.find(class_="con").find_all("a")
+        area, sub_area = cons[0].string, cons[1].string
+        subway = item.find(class_="fang-subway-ex").string
+        price = item.find(class_="price").find(class_="num").string
+        data = item.find(class_="price-pre").string.split('\n')[0]
+        watched = item.find(class_="square").find(class_="num").string
+        yield [houseUrl, title, xiaoqu, huxing, mianji, area, sub_area, subway, price, data, watched]
 
 
 def main(page, results):
     url = 'http://sh.lianjia.com/zufang/d' + str(page)
     html = get_one_page(url)
+    # parse_one_page(html)
     for item in parse_one_page(html):
         results.append(item)
 
