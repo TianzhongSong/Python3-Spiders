@@ -38,20 +38,16 @@ def parse_one_page(html):
         price = item.find(class_="price").find(class_="num").string
         data = item.find(class_="price-pre").string.split('\n')[0]
         watched = item.find(class_="square").find(class_="num").string
+
         yield [houseUrl, title, xiaoqu, huxing, mianji, area, sub_area, subway, price, data, watched]
-
-
-def main(page, results):
-    url = 'http://sh.lianjia.com/zufang/d' + str(page)
-    html = get_one_page(url)
-    # parse_one_page(html)
-    for item in parse_one_page(html):
-        results.append(item)
 
 
 if __name__ == '__main__':
     results = []
-    for i in range(100):
+    for page in range(100):
         sleep(1)
-        main(i+1, results)
+        url = 'http://sh.lianjia.com/zufang/d' + str(page)
+        html = get_one_page(url)
+        for item in parse_one_page(html):
+            results.append(item)
     write_to_file(results)
