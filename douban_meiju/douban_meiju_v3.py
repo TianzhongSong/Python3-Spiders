@@ -43,7 +43,7 @@ def parse_one_drama(html, id):
         directors = content.span.a.string
         for node in content.span.a.next_siblings:
             directors += node.string
-    except:
+    except Exception:
         directors = 'unkonw'
     try:
         count = 0
@@ -54,14 +54,14 @@ def parse_one_drama(html, id):
                 for sub_node in node.a.next_siblings:
                     screenWriter += sub_node.string
             count += 1
-    except:
+    except Exception:
         screenWriter = 'unkonw'
 
     try:
         actors = content.find(class_="actor").find(class_="attrs").a.string
         for node in content.find(class_="actor").find(class_="attrs").a.next_siblings:
             actors += node.string
-    except:
+    except Exception:
         actors = 'unkonw'
 
     try:
@@ -70,7 +70,7 @@ def parse_one_drama(html, id):
         if len(drama_types) > 1:
             for i in range(1, len(drama_types)):
                 drama_type = drama_type + '/' + drama_types[i].string
-    except:
+    except Exception:
         drama_type = 'unkonw'
 
     try:
@@ -82,7 +82,7 @@ def parse_one_drama(html, id):
         language = items[0][1]
         score = items[0][2]
         voted = items[0][3]
-    except:
+    except Exception:
         region = 'unkonw'
         language = 'unkonw'
         score = 'unkonw'
