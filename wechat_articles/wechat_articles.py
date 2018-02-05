@@ -1,7 +1,7 @@
 # -*- coding:utf-8 -*-
 from urllib.parse import urlencode
 import requests
-from requests.exceptions import ConnectionError
+from requests.exceptions import ConnectionError, RequestException
 from bs4 import BeautifulSoup
 from pyquery import PyQuery as pq
 
@@ -79,6 +79,33 @@ def parse_index(html):
         yield item.attr('href')
 
 
+def get_detial(url):
+    try:
+        response = requests.get(url)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return None
+    except RequestException:
+        return None
+
+
+def parse_detial(html):
+    doc = pq(html)
+    title = doc('.rich_media_title').text()
+    content = doc('.rich_media_content').text()
+    date = doc('#post-date').text()
+    nickname = doc('#js_profile_qrcode > div > strong').text()
+    wechat = doc('#js_profile_qrcode > div > p:nth-child(3) > span').text()
+    return {
+        'title': title,
+        'content': content,
+        'date': date,
+        'nickname': nickname,
+        'wechat': wechat
+    }
+
+
 def main():
     for page in range(1, 101):
         html = get_index(keyword, page)
@@ -86,7 +113,10 @@ def main():
         if html:
             articles_urls = parse_index(html)
             for articles_url in articles_urls:
-                print(articles_url)
+                article_html = get_detial(articles_url)
+                if article_html:
+                    article_data = parse_detial(article_html)
+                    print(article_data)
 
 
 if __name__ == "__main__":
