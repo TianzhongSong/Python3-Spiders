@@ -7,17 +7,7 @@ from pyquery import PyQuery as pq
 
 base_url = 'http://weixin.sogou.com/weixin?'
 headers = {
-    'Cookie': 'CXID=02ADC062D77AE47FC443E8FB59E9AE73; \
-    ad=Oyllllllll2zb$SNlllllVImIV1lllllt9VD1lllll9lllll4ylll5@@@@@@@@@@; \
-    SUID=D07C41705B68860A5A6EA45D000B354F; SUV=00CE0B5C70417CCA5A72BCCA94D02067; \
-    IPLOC=CN3100; SNUID=72FF8AE2F8FD9CBD7FB0303BF982B1F8; sct=2; \
-    ppinf=5|1517621574|1518831174|dHJ1c3Q6MToxfGNsaWVudGlkOjQ6MjAxN3x1bmlxbm\
-    FtZToyNzolRTUlQUUlOEIlRTUlQTQlQTklRTQlQjglQUR8Y3J0OjEwOjE1MTc2MjE1NzR8cmVmbmljaz\
-    oyNzolRTUlQUUlOEIlRTUlQTQlQTklRTQlQjglQUR8dXNlcmlkOjQ0Om85dDJsdUp2YnFqVEoyYUV5bVhjcmt\
-    JZFlfUmdAd2VpeGluLnNvaHUuY29tfA; pprdig=tOyRk2QPRlGEW6ufWTT06fRyq0QWvrIR4_6VJKSiNuQqf\
-    voWAX9bExd6rNbET6t9y7uEIYCkqHRfJ4wcKewwZSkLqq2uHMRu3PaKe5jNb-PCUgx09bUF_UG0ARlM2yb7tPB\
-    XjWp10BpAEP_fsNyWyJqtDNgnPhq7VGGV5OFqTEs; sgid=21-33348115-AVp1EUaQch2ocdoZVxkfJBg; ppmd\
-    ig=15176215750000005c9f33dcdbf69310ed560b835b5eaee3',
+    'Cookie': 'your cookie',
     'Host': 'weixin.sogou.com',
     'Upgrade-Insecure-Requests': '1',
     'User-Agent': 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 \
