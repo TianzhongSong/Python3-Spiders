@@ -75,5 +75,5 @@ if __name__ == "__main__":
             proxy = get_proxy()
             print('current ip:', proxy)
         sleep(1)
-        print(i)
+        print('Current page:', i)
         main(i, proxy)
